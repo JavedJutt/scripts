@@ -8,8 +8,10 @@ import traceback
 try:
     from pinecone_manager import PineconeManager
 except ImportError:
-    # Ensure current directory is in path if running from elsewhere
-    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+    # Ensure parent directory is in path if running from subdirectory
+    # We need to go up one level from the current file's directory
+    parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.append(parent_dir)
     from pinecone_manager import PineconeManager
 
 def migrate(source_key, source_index_name, dest_key, dest_index_name):
